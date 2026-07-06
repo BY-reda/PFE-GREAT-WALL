@@ -33,7 +33,7 @@ export default function Topbar({ title = 'Dashboard' }) {
             {title}
           </Typography>
           <Typography variant="caption" color="text.secondary" fontWeight={600} sx={{ display: 'block', mt: 0.2 }}>
-            {loading ? 'Synchronizing database…' : `Analyzing ${students.length.toLocaleString()} active student applications`}
+            {loading ? 'Synchronizing database…' : `Analyzing ${(students?.length || 0).toLocaleString()} active student applications`}
           </Typography>
         </Box>
 

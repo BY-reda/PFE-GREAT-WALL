@@ -148,7 +148,7 @@ export default function DashboardHome() {
             <Grid size={{ xs: 12, md: 4 }}>
               <KPICard
                 title="Avg. Student Financial ROI"
-                value={currency === 'USD' ? `$${financials.avgSavingsPerStudentUSD.toLocaleString()}` : `${financials.avgSavingsPerStudentMAD.toLocaleString()} MAD`}
+                value={currency === 'USD' ? `$${(financials?.avgSavingsPerStudentUSD || 0).toLocaleString()}` : `${(financials?.avgSavingsPerStudentMAD || 0).toLocaleString()} MAD`}
                 subtitle="Average value unlocked per applicant"
                 icon={<MdTrendingUp size={24} />}
                 color="info"

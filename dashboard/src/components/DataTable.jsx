@@ -134,7 +134,7 @@ export default function DataTable({
             <Box>
               <Typography variant="h6" fontWeight={800} color="text.primary">{title}</Typography>
               <Typography variant="caption" color="text.secondary" fontWeight={600}>
-                {filtered.length.toLocaleString()} records loaded
+                {(filtered?.length || 0).toLocaleString()} records loaded
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center' }}>

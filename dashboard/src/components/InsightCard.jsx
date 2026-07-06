@@ -142,7 +142,7 @@ export function StatBar({ label, value, max, color = '#6366f1', unit = '' }) {
           {label}
         </Typography>
         <Typography variant="body2" fontWeight={800} sx={{ whiteSpace: 'nowrap', flexShrink: 0 }}>
-          {value.toLocaleString()}{unit} <span style={{ color: '#94a3b8', fontWeight: 500 }}>({pct}%)</span>
+          {(value ?? 0).toLocaleString()}{unit} <span style={{ color: '#94a3b8', fontWeight: 500 }}>({pct}%)</span>
         </Typography>
       </Box>
       <LinearProgress

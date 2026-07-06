@@ -110,7 +110,7 @@ export default function BarChartWidget({
                         dataKey={dataKey}
                         position="right"
                         style={{ fontSize: 11, fontWeight: 700, fill: theme.palette.text.primary }}
-                        formatter={(v) => v.toLocaleString()}
+                        formatter={(v) => (v ?? 0).toLocaleString()}
                       />
                     )}
                   </Bar>
@@ -161,7 +161,7 @@ export default function BarChartWidget({
                         dataKey={dataKey}
                         position="top"
                         style={{ fontSize: 11, fontWeight: 700, fill: theme.palette.text.primary }}
-                        formatter={(v) => v.toLocaleString()}
+                        formatter={(v) => (v ?? 0).toLocaleString()}
                       />
                     )}
                   </Bar>

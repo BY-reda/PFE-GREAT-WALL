@@ -14,7 +14,7 @@ export default function Settings() {
   const theme = useTheme();
 
   const stats = [
-    { label: 'Total Student Records Loaded', value: rawStudents.length.toLocaleString() },
+    { label: 'Total Student Records Loaded', value: (rawStudents?.length || 0).toLocaleString() },
     { label: 'Primary Data Source', value: 'younes.csv + younes2.csv (merged)' },
     { label: 'Parsed CSV Attributes', value: '20 normalized fields' },
     { label: 'Active Theme Preference', value: mode === 'dark' ? 'Dark Mode (Obsidian)' : 'Light Mode (Slate)' },

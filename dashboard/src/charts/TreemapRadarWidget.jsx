@@ -38,7 +38,7 @@ const TreemapContent = ({ x, y, width, height, name, value, index, colors }) => 
           fill="rgba(255,255,255,0.9)"
           style={{ fontSize: 11, fontWeight: 600, pointerEvents: 'none', textShadow: '0 1px 2px rgba(0,0,0,0.4)' }}
         >
-          {value.toLocaleString()}
+          {(value ?? 0).toLocaleString()}
         </text>
       )}
     </g>
@@ -65,7 +65,7 @@ export function TreemapWidget({ title, subtitle, data = [], height = 320 }) {
           {p?.name}
         </Typography>
         <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
-          Students: <strong style={{ color: theme.palette.text.primary, fontSize: '0.85rem' }}>{p?.size?.toLocaleString()}</strong>
+          Students: <strong style={{ color: theme.palette.text.primary, fontSize: '0.85rem' }}>{(p?.size ?? 0).toLocaleString()}</strong>
         </Typography>
       </Box>
     );

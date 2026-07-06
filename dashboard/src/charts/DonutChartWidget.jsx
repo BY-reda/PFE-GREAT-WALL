@@ -28,7 +28,7 @@ const CustomTooltip = ({ active, payload, theme }) => {
         </Typography>
       </Box>
       <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
-        Count: <strong style={{ color: theme.palette.text.primary, fontSize: '0.85rem' }}>{p.value.toLocaleString()}</strong>
+        Count: <strong style={{ color: theme.palette.text.primary, fontSize: '0.85rem' }}>{(p?.value ?? 0).toLocaleString()}</strong>
       </Typography>
       <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
         Share: <strong style={{ color: theme.palette.text.primary, fontSize: '0.85rem' }}>{pct}%</strong>
@@ -109,7 +109,7 @@ export default function DonutChartWidget({ title, subtitle, data = [], height = 
                 pointerEvents: 'none',
               }}>
                 <Typography variant="h5" fontWeight={800} color="text.primary" sx={{ lineHeight: 1.1 }}>
-                  {total.toLocaleString()}
+                  {(total ?? 0).toLocaleString()}
                 </Typography>
                 <Typography variant="caption" color="text.secondary" fontWeight={600} sx={{ display: 'block', mt: 0.3 }}>
                   {innerText}

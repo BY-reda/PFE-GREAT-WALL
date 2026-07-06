@@ -898,10 +898,10 @@ Great Wall Admission Counseling Team`;
                             Total Estimated Value ({finCurrency})
                           </Typography>
                           <Typography variant="h3" fontWeight={800} color="success.main" sx={{ my: 0.5 }}>
-                            {finCurrency === 'USD' ? `$${finResults.totalSaved.toLocaleString()}` : `${finResults.totalSavedMAD.toLocaleString()} MAD`}
+                            {finCurrency === 'USD' ? `$${(finResults?.totalSaved || 0).toLocaleString()}` : `${(finResults?.totalSavedMAD || 0).toLocaleString()} MAD`}
                           </Typography>
                           <Typography variant="caption" color="text.secondary">
-                            Total parent savings over {finResults.years} years
+                            Total parent savings over {finResults?.years || 4} years
                           </Typography>
                         </Box>
                       </Grid>
@@ -910,20 +910,20 @@ Great Wall Admission Counseling Team`;
                           <Box sx={{ display: 'flex', justify: 'space-between', mb: 1 }}>
                             <Typography variant="body2" color="text.secondary" fontWeight={600}>Tuition Waiver:</Typography>
                             <Typography variant="body2" fontWeight={800}>
-                              {finCurrency === 'USD' ? `$${finResults.tuitionSaved.toLocaleString()}` : `${finResults.tuitionSavedMAD.toLocaleString()} MAD`}
+                              {finCurrency === 'USD' ? `$${(finResults?.tuitionSaved || 0).toLocaleString()}` : `${(finResults?.tuitionSavedMAD || 0).toLocaleString()} MAD`}
                             </Typography>
                           </Box>
                           <Box sx={{ display: 'flex', justify: 'space-between', mb: 1 }}>
                             <Typography variant="body2" color="text.secondary" fontWeight={600}>Dormitory Stipend:</Typography>
                             <Typography variant="body2" fontWeight={800}>
-                              {finCurrency === 'USD' ? `$${finResults.dormSaved.toLocaleString()}` : `${finResults.dormSavedMAD.toLocaleString()} MAD`}
+                              {finCurrency === 'USD' ? `$${(finResults?.dormSaved || 0).toLocaleString()}` : `${(finResults?.dormSavedMAD || 0).toLocaleString()} MAD`}
                             </Typography>
                           </Box>
                           <Divider sx={{ my: 1 }} />
                           <Box sx={{ display: 'flex', justify: 'space-between' }}>
                             <Typography variant="subtitle2" fontWeight={800} color="primary">Annual Benefit:</Typography>
                             <Typography variant="subtitle2" fontWeight={800} color="primary">
-                              {finCurrency === 'USD' ? `$${finResults.annualSaved.toLocaleString()}/yr` : `${finResults.annualSavedMAD.toLocaleString()} MAD/yr`}
+                              {finCurrency === 'USD' ? `$${(finResults?.annualSaved || 0).toLocaleString()}/yr` : `${(finResults?.annualSavedMAD || 0).toLocaleString()} MAD/yr`}
                             </Typography>
                           </Box>
                         </Box>
@@ -931,7 +931,7 @@ Great Wall Admission Counseling Team`;
                     </Grid>
 
                     <Alert severity="info" sx={{ borderRadius: 2.5, fontWeight: 600 }}>
-                      💡 Counseling Tip: Presenting this 4-year total savings figure ({finCurrency === 'USD' ? `$${finResults.totalSaved.toLocaleString()}` : `${finResults.totalSavedMAD.toLocaleString()} MAD`}) to Moroccan parents significantly increases agency enrollment conversion rates!
+                      💡 Counseling Tip: Presenting this 4-year total savings figure ({finCurrency === 'USD' ? `$${(finResults?.totalSaved || 0).toLocaleString()}` : `${(finResults?.totalSavedMAD || 0).toLocaleString()} MAD`}) to Moroccan parents significantly increases agency enrollment conversion rates!
                     </Alert>
                   </CardContent>
                 </Card>
