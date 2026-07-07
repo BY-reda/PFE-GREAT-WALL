@@ -50,7 +50,14 @@ export function DataProvider({ children }) {
               const deg = String(s.degree || '').trim().toLowerCase();
               return deg.includes('bachelor') || deg === '' || deg === 'unknown';
             });
-          setRawStudents(cleaned);
+          let customStudents = [];
+          try {
+            const saved = localStorage.getItem('gw_custom_students');
+            if (saved) customStudents = JSON.parse(saved);
+          } catch (err) {
+            console.warn('Error reading custom students from localStorage:', err);
+          }
+          setRawStudents([...customStudents, ...cleaned]);
           setLoading(false);
         } catch (e) {
           setError(e.message);
@@ -99,6 +106,38 @@ export function DataProvider({ children }) {
   const updateFilter = (key, val) => setFilters((prev) => ({ ...prev, [key]: val }));
   const resetFilters = () => setFilters(DEFAULT_FILTERS);
 
+  // ── Add New Student without Backend (Client-Side Persistence) ────────────
+  const addStudent = (newStudentData) => {
+    const newStudent = {
+      id: `custom_${Date.now()}`,
+      name: newStudentData.name || 'New Candidate',
+      age: Number(newStudentData.age) || 18,
+      degree: newStudentData.degree || 'Bachelor',
+      major: newStudentData.major || 'Computer Science',
+      university: newStudentData.university || 'Zhejiang University',
+      scholarship: newStudentData.scholarship || 'Full Scholarship',
+      englishScore: Number(newStudentData.englishScore) || 75,
+      englishTestType: newStudentData.englishTestType || 'Duolingo',
+      hasTranscript: Boolean(newStudentData.hasTranscript ?? true),
+      hasPhysical: Boolean(newStudentData.hasPhysical ?? true),
+      hasEnglishCert: Boolean(newStudentData.hasEnglishCert ?? true),
+      docsComplete: Boolean(newStudentData.docsComplete ?? true),
+      transcriptMention: newStudentData.transcriptMention || 'Très Bien',
+      transcriptNotes: newStudentData.transcriptNotes || {},
+      ...newStudentData
+    };
+
+    setRawStudents((prev) => [newStudent, ...prev]);
+
+    try {
+      const existing = JSON.parse(localStorage.getItem('gw_custom_students') || '[]');
+      localStorage.setItem('gw_custom_students', JSON.stringify([newStudent, ...existing]));
+    } catch (err) {
+      console.warn('Could not save to localStorage:', err);
+    }
+    return newStudent;
+  };
+
   return (
     <DataCtx.Provider
       value={{
@@ -110,6 +149,7 @@ export function DataProvider({ children }) {
         filterOptions,
         updateFilter,
         resetFilters,
+        addStudent,
       }}
     >
       {children}
