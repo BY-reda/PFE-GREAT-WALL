@@ -2,17 +2,77 @@
 *, *::before, *::after {
   box-sizing: border-box;
 }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
 body {
   margin: 0;
   padding: 0;
   font-family: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 #root {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-/* Recharts responsive container fix */
+
+/* Responsive custom scrollbars for tables, dialogs, and main layout */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.03);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.4);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.6);
+}
+
+/* Recharts and responsive container fix */
 .recharts-responsive-container {
   outline: none;
+  min-width: 0;
+}
+
+/* AI OCR Scanner Laser and Glow Keyframes */
+@keyframes scan-laser {
+  0% {
+    top: 5%;
+    opacity: 0.85;
+  }
+  50% {
+    top: 92%;
+    opacity: 1;
+    box-shadow: 0 0 25px #10b981, 0 0 45px #10b981;
+  }
+  100% {
+    top: 5%;
+    opacity: 0.85;
+  }
+}
+
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(16, 185, 129, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.25);
+  }
+}
+
+@keyframes scan-line-fade {
+  0% { opacity: 0.3; transform: scaleX(0.98); }
+  50% { opacity: 0.8; transform: scaleX(1.02); }
+  100% { opacity: 0.3; transform: scaleX(0.98); }
 }

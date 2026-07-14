@@ -27,7 +27,6 @@ const NAV_ITEMS = [
       { label: 'AI Vision OCR', path: '/tools?tab=1', icon: MdDocumentScanner },
       { label: 'Automated Reminder', path: '/tools?tab=2', icon: MdMessage },
       { label: 'Head-to-Head', path: '/tools?tab=3', icon: MdCompareArrows },
-      { label: 'Financial Estimator', path: '/tools?tab=4', icon: MdCalculate },
     ]
   },
   { label: 'Students', icon: MdPeople, path: '/students', section: 'main' },

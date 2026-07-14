@@ -761,52 +761,6 @@ export function generateMultiUniversityRecommendations(student = {}, customOptio
   });
 }
 
-// ── Agency Financial Valuation & ROI Intelligence ───────────────────────────
-export function computeAgencyFinancials(students) {
-  const total = students.length || 0;
-  if (!total) return { totalValueUSD: 0, totalValueMAD: 0, savingsUSD: 0, savingsMAD: 0 };
-
-  let fullCount = 0;
-  let freeTuitionCount = 0;
-  let partialCount = 0;
-
-  students.forEach(s => {
-    const sc = (s.scholarship || '').toLowerCase();
-    if (sc.includes('full')) fullCount++;
-    else if (sc.includes('free')) freeTuitionCount++;
-    else if (sc.includes('partial')) partialCount++;
-  });
-
-  // Estimated 4-Year Tuition & Dormitory Savings per student in China (in USD)
-  // 1 USD = 10 MAD conversion for Moroccan market clarity
-  const fullSavingUSD = 18000;      // $4,500/yr * 4 years (Tuition + Dorm + Stipend value)
-  const freeTuitionSavingUSD = 14000; // $3,500/yr * 4 years (Tuition waiver value)
-  const partialSavingUSD = 7200;    // $1,800/yr * 4 years (Partial tuition discount)
-
-  const totalSavingsUSD = (fullCount * fullSavingUSD) + (freeTuitionCount * freeTuitionSavingUSD) + (partialCount * partialSavingUSD);
-  const totalSavingsMAD = totalSavingsUSD * 10;
-
-  // Agency Processing Value (Estimated agency service & placement volume: ~$1,200 USD / 12,000 MAD per application)
-  const agencyRevenueUSD = total * 1200;
-  const agencyRevenueMAD = agencyRevenueUSD * 10;
-
-  return {
-    totalStudents: total,
-    fullCount,
-    freeTuitionCount,
-    partialCount,
-    totalSavingsUSD,
-    totalSavingsMAD,
-    totalSavingsUSDFormatted: `$${(totalSavingsUSD / 1000000).toFixed(2)}M`,
-    totalSavingsMADFormatted: `${(totalSavingsMAD / 1000000).toFixed(2)}M MAD`,
-    agencyRevenueUSD,
-    agencyRevenueMAD,
-    agencyRevenueUSDFormatted: `$${(agencyRevenueUSD / 1000000).toFixed(2)}M`,
-    agencyRevenueMADFormatted: `${(agencyRevenueMAD / 1000000).toFixed(2)}M MAD`,
-    avgSavingsPerStudentUSD: Math.round(totalSavingsUSD / total),
-    avgSavingsPerStudentMAD: Math.round(totalSavingsMAD / total),
-  };
-}
 
 // ── Conversion Funnel Velocity & Drop-off Analysis ──────────────────────────
 export function computeFunnelVelocity(students) {

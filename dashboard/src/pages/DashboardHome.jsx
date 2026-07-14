@@ -13,14 +13,13 @@ import DonutChartWidget from '../charts/DonutChartWidget';
 import { useData } from '../context/DataContext';
 import {
   computeKPIs, countBy, topN,
-  computeAgencyFinancials,
   computeFunnelVelocity, detectDataAnomalies
 } from '../utils/dataUtils';
 import {
   MdPeople, MdAccountBalance, MdSchool, MdCheckCircle,
   MdLanguage, MdPublic, MdAutoFixHigh, MdArrowForward,
-  MdMonetizationOn, MdTrendingUp, MdWarning, MdLightbulb,
-  MdFilterList, MdSecurity, MdAttachMoney, MdPersonAdd,
+  MdTrendingUp, MdWarning, MdLightbulb,
+  MdFilterList, MdSecurity, MdPersonAdd,
   MdDescription, MdAssessment, MdVisibility, MdPhone,
   MdDashboard, MdAssignmentLate, MdPlaylistAddCheck, MdLaunch
 } from 'react-icons/md';
@@ -29,10 +28,8 @@ export default function DashboardHome() {
   const theme = useTheme();
   const navigate = useNavigate();
   const { students, loading, updateFilter } = useData();
-  const [currency, setCurrency] = useState('USD'); // 'USD' | 'MAD'
 
   const kpis = useMemo(() => computeKPIs(students), [students]);
-  const financials = useMemo(() => computeAgencyFinancials(students), [students]);
   const funnelData = useMemo(() => computeFunnelVelocity(students), [students]);
   const anomalies = useMemo(() => detectDataAnomalies(students), [students]);
 
@@ -65,171 +62,75 @@ export default function DashboardHome() {
         <GlobalFilters />
       </Box>
 
-      {/* ── Top Strip: Quick Actions & Financial ROI Banner ────────────────── */}
+      {/* ── Top Strip: Quick Agency Shortcuts ────────────────── */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
-        {/* Left: Quick Counselor Actions */}
-        <Grid size={{ xs: 12, lg: 6 }}>
+        <Grid size={{ xs: 12 }}>
           <Card
             sx={{
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
               background: theme.palette.mode === 'dark'
                 ? 'linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)'
                 : 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(241, 245, 249, 0.95) 100%)',
               border: `1px solid ${theme.palette.divider}`,
               borderRadius: 3,
-              boxShadow: '0 4px 20px -5px rgba(0,0,0,0.1)',
+              boxShadow: '0 4px 20px -5px rgba(0,0,0,0.08)',
             }}
           >
-            <CardContent sx={{ p: 3 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
-                <Box sx={{ p: 1, borderRadius: 2, bgcolor: alpha(theme.palette.primary.main, 0.1), color: 'primary.main', display: 'flex' }}>
-                  <MdDashboard size={22} />
-                </Box>
-                <Typography variant="h6" fontWeight={800} color="text.primary">
-                  Agency Operational Shortcuts
-                </Typography>
-              </Box>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                Instant access to core daily tasks: student intake, AI scholarship matching, document verification, and executive reporting.
-              </Typography>
-
-              <Grid container spacing={1.5}>
-                <Grid size={{ xs: 6, sm: 3 }}>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    startIcon={<MdPersonAdd />}
-                    onClick={() => navigate('/students?add=true')}
-                    sx={{ py: 1.2, fontWeight: 700, borderRadius: 2, textTransform: 'none', boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)' }}
-                  >
-                    Add Student
-                  </Button>
-                </Grid>
-                <Grid size={{ xs: 6, sm: 3 }}>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="secondary"
-                    startIcon={<MdAutoFixHigh />}
-                    onClick={() => navigate('/tools')}
-                    sx={{ py: 1.2, fontWeight: 700, borderRadius: 2, textTransform: 'none', boxShadow: '0 4px 12px rgba(168, 85, 247, 0.3)' }}
-                  >
-                    AI Matcher
-                  </Button>
-                </Grid>
-                <Grid size={{ xs: 6, sm: 3 }}>
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    color="warning"
-                    startIcon={<MdDescription />}
-                    onClick={() => navigate('/documents')}
-                    sx={{ py: 1.2, fontWeight: 700, borderRadius: 2, textTransform: 'none', borderWidth: 2, '&:hover': { borderWidth: 2 } }}
-                  >
-                    Documents
-                  </Button>
-                </Grid>
-                <Grid size={{ xs: 6, sm: 3 }}>
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    color="info"
-                    startIcon={<MdAssessment />}
-                    onClick={() => navigate('/reports')}
-                    sx={{ py: 1.2, fontWeight: 700, borderRadius: 2, textTransform: 'none', borderWidth: 2, '&:hover': { borderWidth: 2 } }}
-                  >
-                    Reports
-                  </Button>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        {/* Right: Agency Financial ROI Valuation */}
-        <Grid size={{ xs: 12, lg: 6 }}>
-          <Card
-            sx={{
-              height: '100%',
-              background: theme.palette.mode === 'dark'
-                ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%)'
-                : 'linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(59, 130, 246, 0.08) 100%)',
-              border: `1px solid ${alpha(theme.palette.success.main, 0.3)}`,
-              borderRadius: 3,
-            }}
-          >
-            <CardContent sx={{ p: 3, display: 'flex', flexDirection: 'column', justify: 'space-between', height: '100%' }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 1, mb: 2 }}>
+            <CardContent sx={{ p: 3.5 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 2, mb: 3 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                  <Box sx={{ width: 44, height: 44, borderRadius: 2.5, bgcolor: theme.palette.success.main, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(16, 185, 129, 0.4)' }}>
-                    <MdMonetizationOn size={26} />
+                  <Box sx={{ p: 1.2, borderRadius: 2.5, bgcolor: alpha(theme.palette.primary.main, 0.12), color: 'primary.main', display: 'flex' }}>
+                    <MdDashboard size={26} />
                   </Box>
                   <Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <Typography variant="subtitle1" fontWeight={800} color="text.primary">
-                        Agency Financial Valuation & ROI
-                      </Typography>
-                      <Chip label="Jury KPI" size="small" color="success" sx={{ fontWeight: 700, height: 20 }} />
-                    </Box>
-                    <Typography variant="caption" color="text.secondary">
-                      Total 4-year tuition waivers & processing pipeline value
+                    <Typography variant="h6" fontWeight={800} color="text.primary">
+                      Agency Operational Shortcuts & Intelligence Tools
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Instant one-click navigation across student intake, AI scholarship matching, document compliance, and analytical reporting.
                     </Typography>
                   </Box>
                 </Box>
-                <ButtonGroup variant="outlined" size="small" sx={{ bgcolor: 'background.paper', borderRadius: 2 }}>
-                  <Button
-                    variant={currency === 'USD' ? 'contained' : 'outlined'}
-                    color="success"
-                    onClick={() => setCurrency('USD')}
-                    sx={{ fontWeight: 700, px: 1.5, fontSize: '0.75rem' }}
-                  >
-                    USD ($)
-                  </Button>
-                  <Button
-                    variant={currency === 'MAD' ? 'contained' : 'outlined'}
-                    color="success"
-                    onClick={() => setCurrency('MAD')}
-                    sx={{ fontWeight: 700, px: 1.5, fontSize: '0.75rem' }}
-                  >
-                    MAD (DH)
-                  </Button>
-                </ButtonGroup>
               </Box>
 
               <Grid container spacing={2}>
-                <Grid size={{ xs: 4 }}>
-                  <Box sx={{ p: 1.5, borderRadius: 2, bgcolor: alpha(theme.palette.success.main, 0.08), border: `1px solid ${alpha(theme.palette.success.main, 0.2)}`, textAlign: 'center' }}>
-                    <Typography variant="caption" color="text.secondary" fontWeight={700} sx={{ display: 'block', mb: 0.3 }}>
-                      Total Scholarship Value
-                    </Typography>
-                    <Typography variant="h6" fontWeight={800} color="success.main">
-                      {currency === 'USD' ? financials?.totalSavingsUSDFormatted : financials?.totalSavingsMADFormatted}
-                    </Typography>
-                  </Box>
+                <Grid size={{ xs: 12, sm: 4, md: 4 }}>
+                  <Button
+                    fullWidth
+                    size="large"
+                    variant="contained"
+                    color="primary"
+                    startIcon={<MdPersonAdd size={22} />}
+                    onClick={() => navigate('/students?add=true')}
+                    sx={{ py: 1.6, fontWeight: 800, borderRadius: 2.5, textTransform: 'none', fontSize: '0.95rem', boxShadow: '0 6px 16px rgba(99, 102, 241, 0.3)' }}
+                  >
+                    Add New Student
+                  </Button>
                 </Grid>
-                <Grid size={{ xs: 4 }}>
-                  <Box sx={{ p: 1.5, borderRadius: 2, bgcolor: alpha(theme.palette.primary.main, 0.08), border: `1px solid ${alpha(theme.palette.primary.main, 0.2)}`, textAlign: 'center' }}>
-                    <Typography variant="caption" color="text.secondary" fontWeight={700} sx={{ display: 'block', mb: 0.3 }}>
-                      Agency Pipeline Revenue
-                    </Typography>
-                    <Typography variant="h6" fontWeight={800} color="primary.main">
-                      {currency === 'USD' ? financials?.agencyRevenueUSDFormatted : financials?.agencyRevenueMADFormatted}
-                    </Typography>
-                  </Box>
+                <Grid size={{ xs: 12, sm: 4, md: 4 }}>
+                  <Button
+                    fullWidth
+                    size="large"
+                    variant="outlined"
+                    color="warning"
+                    startIcon={<MdDescription size={22} />}
+                    onClick={() => navigate('/documents')}
+                    sx={{ py: 1.6, fontWeight: 800, borderRadius: 2.5, textTransform: 'none', fontSize: '0.95rem', borderWidth: 2, '&:hover': { borderWidth: 2 } }}
+                  >
+                    Document Vault
+                  </Button>
                 </Grid>
-                <Grid size={{ xs: 4 }}>
-                  <Box sx={{ p: 1.5, borderRadius: 2, bgcolor: alpha(theme.palette.info.main, 0.08), border: `1px solid ${alpha(theme.palette.info.main, 0.2)}`, textAlign: 'center' }}>
-                    <Typography variant="caption" color="text.secondary" fontWeight={700} sx={{ display: 'block', mb: 0.3 }}>
-                      Avg. Student ROI
-                    </Typography>
-                    <Typography variant="h6" fontWeight={800} color="info.main">
-                      {currency === 'USD' ? `$${(financials?.avgSavingsPerStudentUSD || 0).toLocaleString()}` : `${(financials?.avgSavingsPerStudentMAD || 0).toLocaleString()} MAD`}
-                    </Typography>
-                  </Box>
+                <Grid size={{ xs: 12, sm: 4, md: 4 }}>
+                  <Button
+                    fullWidth
+                    size="large"
+                    variant="outlined"
+                    color="info"
+                    startIcon={<MdAssessment size={22} />}
+                    onClick={() => navigate('/reports')}
+                    sx={{ py: 1.6, fontWeight: 800, borderRadius: 2.5, textTransform: 'none', fontSize: '0.95rem', borderWidth: 2, '&:hover': { borderWidth: 2 } }}
+                  >
+                    Executive Reports
+                  </Button>
                 </Grid>
               </Grid>
             </CardContent>
@@ -337,15 +238,6 @@ export default function DashboardHome() {
                 </Typography>
               </Box>
             </Box>
-            <Button
-              variant="outlined"
-              color="primary"
-              startIcon={<MdAutoFixHigh />}
-              onClick={() => navigate('/tools')}
-              sx={{ fontWeight: 700, borderRadius: 2 }}
-            >
-              Launch Decision Simulators
-            </Button>
           </Box>
 
           <Grid container spacing={2.5}>
